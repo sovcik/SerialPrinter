@@ -69,3 +69,20 @@ Send buffer to printer
 ```
 thp.writeBuffer();
 ```
+
+**Query Printer Status**
+
+First start automatic status polling
+
+```
+thp.startStatusUpdate(1000); // check interval in milliseconds
+```
+
+Then inside your loop() call printer's loop() method and query status.
+```
+thp.loop();
+if (thp.status() != status){
+    status = thp.status();
+    Serial.printf("Printer status changed=%x\n",status);
+}
+```
