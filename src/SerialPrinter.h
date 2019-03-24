@@ -73,9 +73,6 @@ class Printer {
         };
 
     protected:
-        char* id;
-        char* codePage;
-
         TransTable* pc;
         uint8_t* buff;
         uint16_t buffUsed;
@@ -93,8 +90,6 @@ class Printer {
     public:
         Printer();
         virtual ~Printer();
-        virtual inline const char* getId(){return id;};
-        virtual inline const char* getCodePage(){return codePage;};
         
         virtual void begin() =0;
 
