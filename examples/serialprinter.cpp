@@ -54,7 +54,6 @@ void serial_printer(){
     thp.printNumStr("1b 21 30",16);   // sending printer codes directly
     thp.println("Double size");
 
-    thp.startStatusUpdate(1000); // check interval in milliseconds
     thp.updatePrinterStatus();   // ontime request
     thp_status = thp.status();
     Serial.printf("Printer status=%x\n",thp_status);
@@ -73,8 +72,13 @@ void setup_serial_printer() {
     serial_printer();
 }
 
+uint32_t lastUpdate;
+
 void loop_serial_printer(){
-    thp.loop();
+    if (millis()-lastUpdate > 5000){
+        thp.updatePrinterStatus();
+        lastUpdate = millis();
+    }
     if (thp.status() != thp_status){
         thp_status = thp.status();
         Serial.printf("Printer status changed=%x\n",thp_status);

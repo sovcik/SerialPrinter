@@ -22,7 +22,6 @@
 Printer::Printer(){   
     buff = new uint8_t[PRINTER_MAX_BUFF_SIZE];
     buffUsed = 0;
-    updateInterval = 0;
     pc = NULL;
 
 }
@@ -117,23 +116,6 @@ void Printer::replaceMacros(){
     
 }
 
-void Printer::startStatusUpdate(uint32_t interval){
-    updateInterval = interval;
-    lastUpdate = millis()-updateInterval;
-}
-
-void Printer::stopStatusUpdate(){
-    updateInterval = 0;
-}
-
-
-void Printer::loop(){
-    if (updateInterval && millis()-lastUpdate > updateInterval){
-        DEBUG_SP_PRINT("[Prn:loop] Going to update printer status\n");
-        updatePrinterStatus();
-        lastUpdate = millis();
-    }
-}
 
 bool Printer::printNumStr(const char *ns, int base){
     char* e = (char*)ns;

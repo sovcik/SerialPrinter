@@ -84,9 +84,6 @@ class Printer {
             const uint8_t* find, const uint16_t findSize, 
             const uint8_t* replace, const uint16_t replaceSize);
 
-        uint32_t lastUpdate;
-        uint32_t updateInterval;            
-
     public:
         Printer();
         virtual ~Printer();
@@ -114,14 +111,8 @@ class Printer {
         
         void replaceMacro(const char* s, uint8_t* value, uint16_t valueSize);
 
-        // will start reqular printer status query
-        // requires loop() to be called regularly
-        void startStatusUpdate(uint32_t interval); 
-        void stopStatusUpdate();
         virtual bool updatePrinterStatus()=0;
-        virtual inline int status(){return _status;};
-
-        virtual void loop();  // loop handles regular status queries
+        inline int status(){return _status;};
 
 };
 
